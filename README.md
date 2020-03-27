@@ -3,7 +3,7 @@
 <h2>Stuff you'll need:</h2>
 <ul>
 	<li>compton-tryone fork</li>
-	<li>feh/li>
+	<li>feh</li>
 	<li>polybar</li>
 	<li>noto-fonts</li>
 	<li>ttf-hack</li>
