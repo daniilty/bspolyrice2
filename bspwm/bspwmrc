@@ -7,6 +7,8 @@ bspc monitor -d >_
 
 feh --bg-fill ~/bspolyrice2/bg.JPG &
 
+compton compton --config ~/bspolyrice2/compton.conf &
+
 polybar example &
 
 bspc config border_width         2
