@@ -1,0 +1,225 @@
+[colors]
+background = #aa000000
+background-alt = #484848
+foreground-alt = #141414
+foreground #141414
+primary = #ffb52a
+secondary = #E84A5F
+alert = #E84A5F 
+
+
+[bar/example]
+enable-ipc = true
+tray-position = none
+width = 100%
+height = 20
+radius = 0
+fixed-center = true
+wm-restack = bspwm
+#override-redirect = true
+
+background = #aa000000
+foreground = #ffffff
+
+line-size = 3
+line-color = #f00
+
+border-size = 0
+border-color = #ffffff
+
+padding-left = 0
+padding-right = 2
+
+module-margin-left = 1
+module-margin-right = 2
+font-0 = Hack:pixelsize=10;1
+font-1 = Icons:style=Iconic:pixelsize=9;2
+font-2 = Font Awesome 5 Free:style=Solid:pixelsize=9;1
+font-3 = Noto Sans CJK JP:style=Medium:pixelsize=9;1
+
+modules-left = bspwm i3
+modules-center = date
+modules-right = xkeyboard player-cmus wireless battery
+[module/i3]
+type = internal/i3
+format = <label-state> <label-mode>
+index-sort = true
+wrapping-scroll = false
+strip-wsnumbers = false
+
+; Only show workspaces on the same output as the bar
+;pin-workspaces = true
+
+label-mode-padding = 0
+label-mode-foreground = #000
+label-mode-background = ${colors.primary}
+
+; focused = Active workspace on focused monitor
+label-focused = %name%
+label-focused-background = #aa000000
+label-focused-foreground = #ffffff
+label-focused-padding = 1
+
+; unfocused = Inactive workspace on any monitor
+label-unfocused = %name%
+label-unfocused-foreground = #484848
+label-unfocused-padding = 1
+
+; visible = Active workspace on unfocused monitor
+label-visible = %name%
+label-visible-background = ${self.label-focused-background}
+label-visible-padding = ${self.label-focused-padding}
+
+; urgent = Workspace with urgency hint set
+label-urgent = %name%
+label-urgent-background = #ffffff
+label-urgent-padding = 1
+
+
+
+[module/title]
+type = internal/xwindow
+; Available tags:
+;   <label> (default)
+format = <label>
+format-foreground = #ffffff
+format-padding = 0
+
+label = %title%
+label-maxlen = 50
+
+; Used instead of label when there is no window title
+; Available tokens:
+;   None
+label-empty = 
+
+[module/player-cmus]
+type = custom/script
+exec = ~/.config/polybar/cmus.sh
+label =%output%
+format-prefix = "np: "
+format-prefix-foreground = #484848
+exec-if = cmus-remote -Q
+interval = 1
+click-left = cmus-remote -n
+click-right = cmus-remote -r
+click-middle = ~/polybar-scripts/player-cmus.sh --toggle
+
+[module/xkeyboard]
+type = internal/xkeyboard
+blacklist-0 = num lock
+blacklist-1 = caps lock
+
+format-prefix-foreground = #ffffff
+label-layout = %layout%
+label-indicator-padding = 2
+label-indicator-margin = 1
+label-indicator-background = #aa000000
+
+
+[module/bspwm]
+type = internal/bspwm
+
+label-focused = %index%:%name%
+label-focused-padding = 1
+
+label-occupied = %index%:%name%
+label-occupied-foreground = #484848
+label-occupied-padding = 1
+
+label-urgent = %index%!
+label-urgent-background = #aa000000
+label-urgent-padding = 1
+
+label-empty = 
+
+[module/wireless]
+type = internal/network
+interface = wlp5s0
+interval = 3.0
+
+format-connected-prefix = " "
+format-connected-prefix-foreground = #aa000000
+label-connected = %essid%
+
+format-disconnected = 
+label-disconnected = %ifname% disconnected
+label-disconnected-foreground = #ffffff
+
+[module/openvpn]
+type = internal/network
+interface = tun0
+interval = 3.0
+
+format-connected-prefix = "tun0: "
+format-connected-prefix-foreground = #484848
+label-connected = on
+
+format-disconnected-prefix = "tun0: "
+format-disconnected-prefix-foreground = #484848
+label-disconnected = off
+
+[module/eth]
+type = internal/network
+interface = eth0
+interval = 3.0
+
+format-connected-underline = #55aa55
+format-connected-prefix = " "
+format-connected-prefix-foreground = #484848
+label-connected = %local_ip%
+
+format-disconnected =
+
+[module/date]
+type = internal/date
+interval = 5
+
+date = %a 
+date-alt = " %Y-%m-%d"
+
+time = %H:%M
+time-alt = %H:%M:%S
+
+format-prefix-foreground = #484848
+
+label = %date% %time%
+
+[module/battery]
+type = internal/battery
+battery = BAT0
+adapter = AC
+full-at = 98
+
+format-charging-prefix = " " 
+format-charging-prefix-foreground = #484848
+
+format-discharging-prefix = " "
+format-discharging-prefix-foreground = #484848
+
+format-full-prefix = " "
+format-full-prefix-foreground = #484848
+
+[module/temperature]
+type = internal/temperature
+thermal-zone = 0
+warn-temperature = 70
+
+format = <label>
+format-warn = <label-warn>
+
+label = %temperature-c%
+label-foreground = #484848
+label-warn = %temperature-c%
+label-warn-foreground = #ffffff
+
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
+ramp-foreground = #ffffff
+
+[global/wm]
+margin-top = 0
+margin-bottom = 0
+
+; vim:ft=dosini
